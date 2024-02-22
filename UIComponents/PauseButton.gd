@@ -1,19 +1,14 @@
 extends Button
 
-@export var audio: AudioStreamPlayer
-
 
 func _ready():
-	Events.toggle_playing.connect(_update_text)
+	Events.update_ui.connect(_update)
 	
 	
 func _on_pressed():
 	Events.toggle_playing.emit()
 	
 	
-func _update_text():
-	set_text("Play" if audio.stream_paused else "Pause")
-	
-
-
-
+func _update():
+	self.disabled = !Globals.is_song_loaded
+	set_text("Pause" if Globals.playing else "Play")

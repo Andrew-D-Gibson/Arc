@@ -1,2 +1,14 @@
-Panel
+Label
+LineEdit
+HBoxContainer
+VSeparator
+MarginContainer
 VBoxContainer
+OptionButton
+MenuBar
+ColorRect
+CenterContainer
+Panel
+AcceptDialog
+Node
+AspectRatioContainer

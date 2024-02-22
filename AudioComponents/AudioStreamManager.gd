@@ -2,9 +2,8 @@ extends AudioStreamPlayer
 
 
 func _ready():
-	Events.toggle_playing.connect(_toggle_playing)
+	Events.update_ui.connect(_update_playing)
 	
 
-
-func _toggle_playing():
+func _update_playing():
 	stream_paused = !stream_paused

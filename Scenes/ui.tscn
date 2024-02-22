@@ -1,0 +1,177 @@
+[gd_scene load_steps=5 format=3 uid="uid://bahtonyphxi2h"]
+
+[ext_resource type="Script" path="res://AudioComponents/SongLoader.gd" id="1_f62u5"]
+[ext_resource type="Theme" uid="uid://iyjcsf236o82" path="res://default_theme.tres" id="1_pgo5k"]
+[ext_resource type="Script" path="res://UIComponents/PauseButton.gd" id="2_jthgx"]
+[ext_resource type="Script" path="res://UIComponents/SongSelector.gd" id="3_x2rop"]
+
+[node name="UI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+ratio = 1.7778
+
+[node name="CenterContainer" type="CenterContainer" parent="AspectRatioContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="AspectRatioContainer/CenterContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer_Visualizer" type="VBoxContainer" parent="AspectRatioContainer/CenterContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="TimeLabel" type="Label" parent="AspectRatioContainer/CenterContainer/HBoxContainer/VBoxContainer_Visualizer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "-:-- / -:--"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SongVisualizer" type="Panel" parent="AspectRatioContainer/CenterContainer/HBoxContainer/VBoxContainer_Visualizer"]
+custom_minimum_size = Vector2(0, 300)
+layout_mode = 2
+
+[node name="SongLoader" type="Node" parent="AspectRatioContainer/CenterContainer/HBoxContainer/VBoxContainer_Visualizer/SongVisualizer"]
+script = ExtResource("1_f62u5")
+
+[node name="AcceptDialog" type="AcceptDialog" parent="AspectRatioContainer/CenterContainer/HBoxContainer/VBoxContainer_Visualizer/SongVisualizer/SongLoader"]
+initial_position = 1
+size = Vector2i(189, 100)
+unresizable = true
+always_on_top = true
+dialog_text = "Unsupported file type!"
+
+[node name="MarkerLine" type="ColorRect" parent="AspectRatioContainer/CenterContainer/HBoxContainer/VBoxContainer_Visualizer/SongVisualizer"]
+custom_minimum_size = Vector2(4, 0)
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.682353, 0.682353, 0.682353, 1)
+
+[node name="PauseButton" type="Button" parent="AspectRatioContainer/CenterContainer/HBoxContainer/VBoxContainer_Visualizer"]
+layout_mode = 2
+theme = ExtResource("1_pgo5k")
+theme_override_font_sizes/font_size = 48
+disabled = true
+text = "Play"
+script = ExtResource("2_jthgx")
+
+[node name="SongSelector" type="HBoxContainer" parent="AspectRatioContainer/CenterContainer/HBoxContainer/VBoxContainer_Visualizer"]
+layout_mode = 2
+size_flags_horizontal = 0
+script = ExtResource("3_x2rop")
+
+[node name="Button" type="Button" parent="AspectRatioContainer/CenterContainer/HBoxContainer/VBoxContainer_Visualizer/SongSelector"]
+custom_minimum_size = Vector2(350, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("1_pgo5k")
+theme_override_font_sizes/font_size = 32
+text = "Open Song"
+
+[node name="Label" type="Label" parent="AspectRatioContainer/CenterContainer/HBoxContainer/VBoxContainer_Visualizer/SongSelector"]
+custom_minimum_size = Vector2(600, 0)
+layout_mode = 2
+theme = ExtResource("1_pgo5k")
+theme_override_font_sizes/font_size = 32
+text = "No song selected"
+horizontal_alignment = 1
+vertical_alignment = 1
+text_overrun_behavior = 3
+text_direction = 2
+
+[node name="FileDialog" type="FileDialog" parent="AspectRatioContainer/CenterContainer/HBoxContainer/VBoxContainer_Visualizer/SongSelector"]
+title = "Open a File"
+initial_position = 1
+size = Vector2i(600, 600)
+theme = ExtResource("1_pgo5k")
+ok_button_text = "Open"
+file_mode = 0
+filters = PackedStringArray("*.mp3", "*.wav")
+use_native_dialog = true
+
+[node name="VSeparator" type="VSeparator" parent="AspectRatioContainer/CenterContainer/HBoxContainer"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+
+[node name="VBoxContainer_Markers" type="VBoxContainer" parent="AspectRatioContainer/CenterContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Panel" type="Panel" parent="AspectRatioContainer/CenterContainer/HBoxContainer/VBoxContainer_Markers"]
+custom_minimum_size = Vector2(400, 800)
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="AspectRatioContainer/CenterContainer/HBoxContainer/VBoxContainer_Markers/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="AspectRatioContainer/CenterContainer/HBoxContainer/VBoxContainer_Markers/Panel/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="AspectRatioContainer/CenterContainer/HBoxContainer/VBoxContainer_Markers/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 48
+text = "Trigger Marker:"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="AspectRatioContainer/CenterContainer/HBoxContainer/VBoxContainer_Markers/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+
+[node name="Label" type="Label" parent="AspectRatioContainer/CenterContainer/HBoxContainer/VBoxContainer_Markers/Panel/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_font_sizes/font_size = 32
+text = "Time:  "
+
+[node name="LineEdit" type="LineEdit" parent="AspectRatioContainer/CenterContainer/HBoxContainer/VBoxContainer_Markers/Panel/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 32
+text = "0:00.00"
+alignment = 1
+
+[node name="OptionButton" type="OptionButton" parent="AspectRatioContainer/CenterContainer/HBoxContainer/VBoxContainer_Markers/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 32
+item_count = 3
+selected = 0
+popup/item_0/text = "Small Firework"
+popup/item_0/id = 0
+popup/item_1/text = "Medium Firework"
+popup/item_1/id = 1
+popup/item_2/text = "Large Firework"
+popup/item_2/id = 2
+
+[connection signal="pressed" from="AspectRatioContainer/CenterContainer/HBoxContainer/VBoxContainer_Visualizer/PauseButton" to="AspectRatioContainer/CenterContainer/HBoxContainer/VBoxContainer_Visualizer/PauseButton" method="_on_pressed"]
+[connection signal="button_down" from="AspectRatioContainer/CenterContainer/HBoxContainer/VBoxContainer_Visualizer/SongSelector/Button" to="AspectRatioContainer/CenterContainer/HBoxContainer/VBoxContainer_Visualizer/SongSelector" method="_on_button_button_down"]
+[connection signal="file_selected" from="AspectRatioContainer/CenterContainer/HBoxContainer/VBoxContainer_Visualizer/SongSelector/FileDialog" to="AspectRatioContainer/CenterContainer/HBoxContainer/VBoxContainer_Visualizer/SongSelector" method="_on_file_dialog_file_selected"]

@@ -1,1 +1,9 @@
-res://UIComponents/TimeLabel.gd
+res://Scenes/ui.tscn
+res://Autoloads/globals.gd
+res://UIComponents/PauseButton.gd
+res://Autoloads/events.gd
+res://AudioComponents/AudioStreamManager.gd
+res://default_theme.tres
+res://UIComponents/OpenSongDialogButton.gd
+res://UIComponents/SongSelector.gd
+res://AudioComponents/SongLoader.gd
