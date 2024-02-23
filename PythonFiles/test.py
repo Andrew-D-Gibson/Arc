@@ -1,6 +1,6 @@
 import sys
 import wave
-#import librosa
+import librosa
 import numpy as np
 
 
@@ -17,20 +17,18 @@ def read_wav_file(file_path):
 
 if __name__ == "__main__":
     args = sys.argv  
-    #sys.stdout.write('Hello World!')
-    #print('Hello World!', end='')
 
     if args[1].endswith('.wav'):
         framerate, audio_data = read_wav_file(args[1])
-        print('wav', end='')
-        print(framerate, end='')
-        print(audio_data, end='')
+        print('wav', end='-')
+        print(framerate, end='-')
+        print(audio_data, end='-')
 
     elif args[1].endswith('.mp3'):
-        #audio_data, sampling_rate = librosa.load(file_path, sr=None, mono=True)
-        print('mp3', end='')
-        #print(sampling_rate, end='')
-        #print(audio_data, end='')
+        audio_data, sampling_rate = librosa.load(args[1], sr=None)
+        print('mp3', end='-')
+        print(sampling_rate, end='-')
+        np.savetxt(sys.stdout, audio_data, delimiter='\n', newline=',') #fmt='%d' ensures integers are printed
 
     else:
         print('Unsupported file type.', end='')

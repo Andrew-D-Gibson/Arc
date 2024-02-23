@@ -14,11 +14,12 @@ func _ready():
 
 
 func _load_song(file_path):
+	file_path = ProjectSettings.globalize_path(file_path)
 	var output = []
 	var err = OS.execute(python_path, [loading_script_path, file_path], output)
-	print(err)
-	print(output)
 	
+	output = output[0].split('-')
+
 	if output[0] == 'wav':
 		pass
 	elif output[0] == 'mp3':
@@ -26,6 +27,18 @@ func _load_song(file_path):
 	else:
 		$AcceptDialog.popup()
 		return
+		
+	# Collect the data
+	var file_type = output[0]
+	var rate = output[1]
+	var audio_data_str = output[2].split(',')
+	
+	var audio_data_float = []
+	for i in range(len(audio_data_str)):
+		audio_data_float.append( float(audio_data_str[i]) )
+	
+	print(audio_data_float.max())
+	
 		
 	# Update the global variables
 	Globals.is_song_loaded = true

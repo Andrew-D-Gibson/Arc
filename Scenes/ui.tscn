@@ -1,9 +1,12 @@
-[gd_scene load_steps=5 format=3 uid="uid://bahtonyphxi2h"]
+[gd_scene load_steps=8 format=3 uid="uid://bahtonyphxi2h"]
 
+[ext_resource type="Script" path="res://AudioComponents/AudioStreamPlayer.gd" id="1_0xo0u"]
 [ext_resource type="Script" path="res://AudioComponents/SongLoader.gd" id="1_f62u5"]
 [ext_resource type="Theme" uid="uid://iyjcsf236o82" path="res://default_theme.tres" id="1_pgo5k"]
 [ext_resource type="Script" path="res://UIComponents/PauseButton.gd" id="2_jthgx"]
 [ext_resource type="Script" path="res://UIComponents/SongSelector.gd" id="3_x2rop"]
+[ext_resource type="Script" path="res://UIComponents/AddMarkerButton.gd" id="4_i670a"]
+[ext_resource type="Script" path="res://UIComponents/MarkersController.gd" id="5_6336m"]
 
 [node name="UI" type="Control"]
 layout_mode = 3
@@ -12,6 +15,10 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+script = ExtResource("1_0xo0u")
 
 [node name="AspectRatioContainer" type="AspectRatioContainer" parent="."]
 layout_mode = 1
@@ -64,13 +71,29 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.682353, 0.682353, 0.682353, 1)
 
-[node name="PauseButton" type="Button" parent="AspectRatioContainer/CenterContainer/HBoxContainer/VBoxContainer_Visualizer"]
+[node name="HBoxButtons" type="HBoxContainer" parent="AspectRatioContainer/CenterContainer/HBoxContainer/VBoxContainer_Visualizer"]
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_constants/separation = 45
+
+[node name="PauseButton" type="Button" parent="AspectRatioContainer/CenterContainer/HBoxContainer/VBoxContainer_Visualizer/HBoxButtons"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+size_flags_horizontal = 0
 theme = ExtResource("1_pgo5k")
 theme_override_font_sizes/font_size = 48
 disabled = true
 text = "Play"
 script = ExtResource("2_jthgx")
+
+[node name="AddMarkerButton" type="Button" parent="AspectRatioContainer/CenterContainer/HBoxContainer/VBoxContainer_Visualizer/HBoxButtons"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+disabled = true
+text = "Add Marker"
+script = ExtResource("4_i670a")
 
 [node name="SongSelector" type="HBoxContainer" parent="AspectRatioContainer/CenterContainer/HBoxContainer/VBoxContainer_Visualizer"]
 layout_mode = 2
@@ -86,7 +109,7 @@ theme_override_font_sizes/font_size = 32
 text = "Open Song"
 
 [node name="Label" type="Label" parent="AspectRatioContainer/CenterContainer/HBoxContainer/VBoxContainer_Visualizer/SongSelector"]
-custom_minimum_size = Vector2(600, 0)
+custom_minimum_size = Vector2(450, 0)
 layout_mode = 2
 theme = ExtResource("1_pgo5k")
 theme_override_font_sizes/font_size = 32
@@ -114,44 +137,40 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+script = ExtResource("5_6336m")
 
-[node name="Panel" type="Panel" parent="AspectRatioContainer/CenterContainer/HBoxContainer/VBoxContainer_Markers"]
-custom_minimum_size = Vector2(400, 800)
+[node name="PanelContainer" type="PanelContainer" parent="AspectRatioContainer/CenterContainer/HBoxContainer/VBoxContainer_Markers"]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="AspectRatioContainer/CenterContainer/HBoxContainer/VBoxContainer_Markers/Panel"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 20
-theme_override_constants/margin_top = 20
-theme_override_constants/margin_right = 20
-theme_override_constants/margin_bottom = 20
-
-[node name="VBoxContainer" type="VBoxContainer" parent="AspectRatioContainer/CenterContainer/HBoxContainer/VBoxContainer_Markers/Panel/MarginContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="AspectRatioContainer/CenterContainer/HBoxContainer/VBoxContainer_Markers/PanelContainer"]
 layout_mode = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 40
 
-[node name="Label" type="Label" parent="AspectRatioContainer/CenterContainer/HBoxContainer/VBoxContainer_Markers/Panel/MarginContainer/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="AspectRatioContainer/CenterContainer/HBoxContainer/VBoxContainer_Markers/PanelContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="Label" type="Label" parent="AspectRatioContainer/CenterContainer/HBoxContainer/VBoxContainer_Markers/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 0
 theme_override_font_sizes/font_size = 48
 text = "Trigger Marker:"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="AspectRatioContainer/CenterContainer/HBoxContainer/VBoxContainer_Markers/Panel/MarginContainer/VBoxContainer"]
+[node name="TimeEntry" type="HBoxContainer" parent="AspectRatioContainer/CenterContainer/HBoxContainer/VBoxContainer_Markers/PanelContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(250.2, 0)
 layout_mode = 2
-size_flags_horizontal = 4
 size_flags_vertical = 0
 
-[node name="Label" type="Label" parent="AspectRatioContainer/CenterContainer/HBoxContainer/VBoxContainer_Markers/Panel/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="Label" type="Label" parent="AspectRatioContainer/CenterContainer/HBoxContainer/VBoxContainer_Markers/PanelContainer/MarginContainer/VBoxContainer/TimeEntry"]
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_font_sizes/font_size = 32
 text = "Time:  "
 
-[node name="LineEdit" type="LineEdit" parent="AspectRatioContainer/CenterContainer/HBoxContainer/VBoxContainer_Markers/Panel/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="LineEdit" type="LineEdit" parent="AspectRatioContainer/CenterContainer/HBoxContainer/VBoxContainer_Markers/PanelContainer/MarginContainer/VBoxContainer/TimeEntry"]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 4
@@ -159,7 +178,25 @@ theme_override_font_sizes/font_size = 32
 text = "0:00.00"
 alignment = 1
 
-[node name="OptionButton" type="OptionButton" parent="AspectRatioContainer/CenterContainer/HBoxContainer/VBoxContainer_Markers/Panel/MarginContainer/VBoxContainer"]
+[node name="TerminalNumberEntry" type="HBoxContainer" parent="AspectRatioContainer/CenterContainer/HBoxContainer/VBoxContainer_Markers/PanelContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(250.2, 0)
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="Label" type="Label" parent="AspectRatioContainer/CenterContainer/HBoxContainer/VBoxContainer_Markers/PanelContainer/MarginContainer/VBoxContainer/TerminalNumberEntry"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_font_sizes/font_size = 32
+text = "Terminal Number: "
+
+[node name="SpinBox" type="SpinBox" parent="AspectRatioContainer/CenterContainer/HBoxContainer/VBoxContainer_Markers/PanelContainer/MarginContainer/VBoxContainer/TerminalNumberEntry"]
+layout_mode = 2
+theme = ExtResource("1_pgo5k")
+max_value = 10.0
+alignment = 2
+update_on_text_changed = true
+
+[node name="FireworkTypeButton" type="OptionButton" parent="AspectRatioContainer/CenterContainer/HBoxContainer/VBoxContainer_Markers/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 0
 theme_override_font_sizes/font_size = 32
@@ -172,6 +209,18 @@ popup/item_1/id = 1
 popup/item_2/text = "Large Firework"
 popup/item_2/id = 2
 
-[connection signal="pressed" from="AspectRatioContainer/CenterContainer/HBoxContainer/VBoxContainer_Visualizer/PauseButton" to="AspectRatioContainer/CenterContainer/HBoxContainer/VBoxContainer_Visualizer/PauseButton" method="_on_pressed"]
+[node name="SyncTypeButton" type="OptionButton" parent="AspectRatioContainer/CenterContainer/HBoxContainer/VBoxContainer_Markers/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 32
+item_count = 2
+selected = 0
+popup/item_0/text = "Sync in Sky"
+popup/item_0/id = 0
+popup/item_1/text = "Sync on Ground"
+popup/item_1/id = 1
+
+[connection signal="pressed" from="AspectRatioContainer/CenterContainer/HBoxContainer/VBoxContainer_Visualizer/HBoxButtons/PauseButton" to="AspectRatioContainer/CenterContainer/HBoxContainer/VBoxContainer_Visualizer/HBoxButtons/PauseButton" method="_on_pressed"]
+[connection signal="pressed" from="AspectRatioContainer/CenterContainer/HBoxContainer/VBoxContainer_Visualizer/HBoxButtons/AddMarkerButton" to="AspectRatioContainer/CenterContainer/HBoxContainer/VBoxContainer_Visualizer/HBoxButtons/AddMarkerButton" method="_on_pressed"]
 [connection signal="button_down" from="AspectRatioContainer/CenterContainer/HBoxContainer/VBoxContainer_Visualizer/SongSelector/Button" to="AspectRatioContainer/CenterContainer/HBoxContainer/VBoxContainer_Visualizer/SongSelector" method="_on_button_button_down"]
 [connection signal="file_selected" from="AspectRatioContainer/CenterContainer/HBoxContainer/VBoxContainer_Visualizer/SongSelector/FileDialog" to="AspectRatioContainer/CenterContainer/HBoxContainer/VBoxContainer_Visualizer/SongSelector" method="_on_file_dialog_file_selected"]
